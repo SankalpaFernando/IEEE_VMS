@@ -22,6 +22,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
+          <Route path='/' element={<Login />} />
           <Route path='/login' element={<Login />} />
           <Route path='/auth/error' element={<AuthError />} />
           <Route path='/signup/:resetKey' element={<SignUp />} />
