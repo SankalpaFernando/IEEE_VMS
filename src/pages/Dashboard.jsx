@@ -79,7 +79,7 @@ export default ()=>{
 
                 <Card className="w-[100%] p-4" style={{gridColumnStart:1,gridColumnEnd:3}}>
                     <h1 className="text-xl font-light mb-3">Recent Activities</h1>
-                    <Table>
+                    {associatedProjects.length>0 ? (<Table>
                         <TableHeader>
                             <TableColumn>Project</TableColumn>
                             <TableColumn>Role</TableColumn>
@@ -98,7 +98,10 @@ export default ()=>{
                                 ))
                             }
                         </TableBody>
-                    </Table>
+                    </Table>):(
+                        <p className="text-center mt-5 font-light">No recent activities</p>
+                    
+                    )}
 
                 </Card>
                 <Card className="w-[100%] p-4">
