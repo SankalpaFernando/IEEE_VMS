@@ -24,7 +24,7 @@ export default () => {
             return;
         }
         setIsLoading(false);
-        navigate("/dashboard");
+        navigate("/dashboard/dashboard");
 
     }
 
