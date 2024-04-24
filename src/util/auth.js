@@ -4,7 +4,7 @@ export const getUserAuth = async () => {
 
     const res = await supabase.auth.getUser();
     console.log(res);
-    if(!res.data) return null;
+    if(!res.data.user) return null;
     console.log(res.data.user.id);
     const {data,error} = await supabase.from('users').select("*,ou_volunteer(ou_id,role),volunteer_project(*)").eq('uid',res.data.user.id)
     if(error){
