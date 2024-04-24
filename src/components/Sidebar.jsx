@@ -28,7 +28,7 @@ export default () => {
     return (
         <div className="w-[20%] bg-[#07020d] h-screen top-0 sticky text-[#9b9ba4]">
             <div className="w-[90%] m-auto h-5/6">
-                <div className="flex items-center">
+                <div className=" items-center hidden 2xl:flex">
                     <img src={Logo} className='w-10 mt-5 mb-2  h-10 rounded-full' />
                 </div>
                 <div>
