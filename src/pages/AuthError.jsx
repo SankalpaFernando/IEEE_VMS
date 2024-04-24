@@ -8,10 +8,8 @@ export default function AuthError() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log(user);
         if (!user) {
             window.location.reload();
-            navigate('/dashboard/dashboard')
         }
     }, [user])
 
