@@ -39,14 +39,17 @@ export default () => {
             return;
         }
 
-        await supabase.auth.admin.createUser({
+       const {data:userData} = await supabase.auth.admin.createUser({
             email: formValues.email_address,
             password: formValues.password,
             email_confirm: true
         })
 
+        console.log()
+
         const { data, error } = await supabase.from('users').update({
-            intrest: formValues.intrest
+            intrest: formValues.intrest,
+            uid:userData.user.id
         }).eq('resetKey', resetKey);
 
     }
