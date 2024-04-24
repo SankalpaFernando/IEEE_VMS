@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { EyeFilled, EyeInvisibleFilled } from "@ant-design/icons";
 import { calculatePasswordStrength, getPasswordStrengthColor } from "../util/util";
+import Swal from "sweetalert2";
 
 
 
@@ -23,6 +24,7 @@ export default () => {
     });
 
     const [isVisible, setIsVisible] = useState(false);
+    const [isLoading,setIsLoading] = useState(false);
     const [showProgress, setShowProgress] = useState(false);
     const [error, setError] = useState({
         passwordMsg: ""
@@ -39,6 +41,8 @@ export default () => {
             return;
         }
 
+        setIsLoading(true);
+
        const {data:userData} = await supabase.auth.admin.createUser({
             email: formValues.email_address,
             password: formValues.password,
@@ -51,6 +55,17 @@ export default () => {
             intrest: formValues.intrest,
             uid:userData.user.id
         }).eq('resetKey', resetKey);
+
+        Swal.fire({
+            title: 'Success',
+            text: 'Profile has been created',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        }).then(() => {
+            navigate('/login');
+        })
+
+        setIsLoading(false);
 
     }
 
@@ -111,7 +126,7 @@ export default () => {
                             <Input variant='faded' label="Email" className="my-2" disabled value={formValues.email_address} />
                             <Input variant='faded' label="Membership Status" className="my-2" disabled value={formValues.ieee_status ? "Active" : "Inactive"} />
                             <div className="grid">
-                                <Button color="primary" onClick={submitChanges} fullWidth className="mt-2" variant='flat' radius='sm' >Save</Button>
+                                <Button color="primary" onClick={submitChanges} isLoading={isLoading} fullWidth className="mt-2" variant='flat' radius='sm' >Save</Button>
                             </div>
                         </div>
                         <div>
