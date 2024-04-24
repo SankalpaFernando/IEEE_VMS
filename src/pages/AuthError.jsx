@@ -10,8 +10,9 @@ export default function AuthError() {
     useEffect(() => {
         if (!user) {
             window.location.reload();
+            navigate('/dashboard/dashboard')
         }
-    }, [user])
+    }, [])
 
     return (
         <div className="h-screen w-screen flex justify-center items-center">
