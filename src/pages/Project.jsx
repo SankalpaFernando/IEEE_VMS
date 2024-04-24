@@ -9,12 +9,16 @@ import { useUserStore } from "../util/store";
 import Swal from "sweetalert2";
 import { getMonthName, getScorePointsForProjectType, getMonthsBetweenDates} from "../util/util";
 import { SlAlert } from "@shoelace-style/shoelace";
+import { getUserAccessByProjectRole } from "../util/auth";
 
 
 export default () => {
 
     const [open, setOpen] = useState(false);
     const [volunteerList, setVolunteerList] = useState([]);
+
+    const user = useUserStore(state => state.user);
+
     const [project, setProject] = useState({
         name: '',
         type: '',
@@ -150,7 +154,9 @@ export default () => {
                             </div>
 
                             <div className="flex justify-end">
-                                <Button className="mx-2 my-2" color="primary" variant="solid" radius="sm" endContent={<UserAddOutlined />} onClick={setOpen}>
+                                <Button className="mx-2 my-2" color="primary" variant="solid" radius="sm" endContent={<UserAddOutlined />} onClick={setOpen}
+                                    isDisabled={!getUserAccessByProjectRole(user, projectID,[ "Project Lead"])}
+                                >
                                     Assign Volunteer
                                 </Button>
                             </div>
@@ -176,7 +182,13 @@ export default () => {
                                             <TableCell>
                                                 <Tooltip color="danger" content="Dissociate Volunteer">
                                                     <span className="text-lg text-danger cursor-pointer active:opacity-50">
-                                                        <DeleteFilled onClick={() => {
+                                                        <DeleteFilled 
+                                                        disabled={true}
+                                                        onClick={() => {
+                                                            if(!getUserAccessByProjectRole(user, projectID,[ "Project Lead"])){
+                                                                return
+                                                            }
+
                                                             setDeleteVolunteer(
                                                                 {
                                                                     member_id: volunteer.users.member_id,
@@ -305,7 +317,8 @@ export default () => {
                                 </form>
                             </ModalBody>
                             <ModalFooter>
-                                <Button isLoading={submitting} color="primary" variant='flat' onClick={assignVolunteer} >
+                                <Button isLoading={submitting} color="primary" variant='flat' onClick={assignVolunteer} 
+                                >
                                     Assign the Volunteer
                                 </Button>
 
@@ -978,6 +991,7 @@ const Evaluation = ({ projectID }) => {
 const Settings = ({ projectID }) => {
 
     const user = useUserStore(state => state.user);
+
     const [formValues, setFormValues] = useState({
         name: '',
         description: '',
@@ -1121,10 +1135,12 @@ const Settings = ({ projectID }) => {
                 className="my-2"
                 label="Project Description" value={formValues.description}
                 onChange={(e) => setFormValues({ ...formValues, description: e.target.value })}
+                disabled={!getUserAccessByProjectRole(user, projectID,[ "Project Lead"])}
                 />
 
             <Select label="Project Type" className="my-2" placeholder="Select project type" 
             onSelectionChange={(e) => setFormValues({ ...formValues, type: e.currentKey })}
+            disabled={!getUserAccessByProjectRole(user, projectID,[ "Project Lead"])}
             selectedKeys={[formValues.type]} >
                 <SelectItem key="Technical Session">Technical Session</SelectItem>
                 <SelectItem key="Workshop Session">Workshop Session</SelectItem>
@@ -1165,6 +1181,7 @@ const Settings = ({ projectID }) => {
                 <Button
                     isLoading={loading}
                     onClick={saveProjectSettings}
+                    isDisabled={user.account_type != "SUPER_ADMIN" || !getUserAccessByProjectRole(user, projectID,[ "Project Lead"])}
                     className="mx-2 my-2" color="primary" variant="solid" radius="sm" endContent={<SaveOutlined />} >
                     Save Changes
                 </Button>
@@ -1173,6 +1190,7 @@ const Settings = ({ projectID }) => {
                     formValues.status == "PENDING" ? (
                         <Button
                             isLoading={loading}
+                            isDisabled={!getUserAccessByProjectRole(user, projectID,[ "Project Lead"])}
                             onClick={onStartProject}
                             className="mx-2 my-2 text-white" color="success" variant="solid" radius="sm" endContent={<PlayCircleOutlined />} >
                             Start Project
@@ -1181,7 +1199,7 @@ const Settings = ({ projectID }) => {
                         <Button
                             isLoading={loading}
                             onClick={onEndProject}
-                            isDisabled={formValues.status == "COMPLETED"}
+                            isDisabled={formValues.status == "COMPLETED" || !getUserAccessByProjectRole(user, projectID,[ "Project Lead"])}
                             className="mx-2 my-2  text-white" color="danger" variant="solid" radius="sm" endContent={<DeleteOutlined />} >
                             Complete the Project
                         </Button>

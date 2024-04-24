@@ -28,8 +28,12 @@ export default () => {
     return (
         <div className="w-[20%] bg-[#07020d] h-screen top-0 sticky text-[#9b9ba4]">
             <div className="w-[90%] m-auto h-5/6">
-                <div className=" items-center hidden 2xl:flex">
-                    <img src={Logo} className='w-10 mt-5 mb-2  h-10 rounded-full' />
+                <div className="mt-3 items-center hidden 2xl:flex gap-2">
+                    <img src={Logo} className='w-10 mt-5 ml-2 mb-2  h-10 rounded-full' />
+                    <div className="mt-2">
+                        <h1 className="text-md font-light">IEEE SB UoJ</h1>
+                        <h1 className="text-md font-semibold">Volunteer Management System</h1>
+                    </div>
                 </div>
                 <div>
                     {
@@ -62,7 +66,7 @@ export default () => {
                                             supabase.auth.signOut();
                                             navigate('/login');
                                         }} >Yes</Button>
-                                        <Button color='success' className="w-1/2" variant='flat' onClick={setOpen} >No</Button>
+                                        <Button color='success' className="w-1/2" variant='flat' onClick={()=>setOpen(false)} >No</Button>
                                     </div>
                                 </ModalFooter>
 

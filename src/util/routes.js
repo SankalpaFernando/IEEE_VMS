@@ -1,4 +1,4 @@
-import { CalendarFilled, CompassFilled, CompassOutlined, FundProjectionScreenOutlined, HomeOutlined, ManOutlined, SettingFilled, SolutionOutlined, UserOutlined } from "@ant-design/icons";
+import { CalendarFilled, CalendarOutlined, CompassFilled, CompassOutlined, FundProjectionScreenOutlined, HomeOutlined, ManOutlined, SettingFilled, SettingOutlined, SolutionOutlined, UserOutlined } from "@ant-design/icons";
 import Login from "../pages/Login";
 import Volunteer from "../pages/Volunteer";
 import Dashboard from "../pages/Dashboard";
@@ -35,14 +35,14 @@ export default [
         name:'Events',
         path:'/events',
         Component: Event,
-        Icon: CompassFilled,
+        Icon: CompassOutlined,
         allowed:['SUPER_ADMIN','ORG_ADMIN','PROJECT_ADMIN']
     },
     {
         name:'Calendar',
         path:'/calendar',
         Component: Calendar,
-        Icon: CalendarFilled,
+        Icon: CalendarOutlined,
         allowed:['SUPER_ADMIN','ORG_ADMIN','PROJECT_ADMIN','GENERAL']
     },
     {
@@ -63,7 +63,7 @@ export default [
         name:'Settings',
         path:'/settings',
         Component: Profile,
-        Icon: SettingFilled,
+        Icon: SettingOutlined,
         allowed:['SUPER_ADMIN','ORG_ADMIN','PROJECT_ADMIN','GENERAL']
     }
 

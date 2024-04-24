@@ -17,6 +17,20 @@ export const getUserAuth = async () => {
 
 }
 
+export const getUserAccessByProjectRole = (user,project_id,allowedRoles=[])=>{
+    
+    const userRoles = user?.volunteer_project.map((project)=>({project_id:project.project_id,role:project.role}));
+
+    if(user==null) return false;
+    
+    if(user.account_type == "SUPER_ADMIN") return true;
+    
+    for(let role of userRoles){
+        if(role.project_id == project_id && allowedRoles.includes(role.role)) return true;
+    }
+
+    return false;
+}
 export const getUserAccess =  (user,allowedAccessType,allowedOrgs=[{}])=>{
     
     const userRoles = user?.ou_volunteer.map((ou)=>({ou_id:ou.ou_id,role:ou.role}));

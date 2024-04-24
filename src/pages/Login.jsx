@@ -3,6 +3,8 @@ import { useFormik } from 'formik';
 import supabase from "../supabase/client";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import Logo from '../assets/logo.png';
+import Swal from "sweetalert2";
 
 export default () => {
 
@@ -20,8 +22,16 @@ export default () => {
             password: formValues.password
         });
         if (error) {
-            console.log(error);
+            // Wrong email or password
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Wrong email or password!',
+
+            })
+            setIsLoading(false);
             return;
+
         }
         setIsLoading(false);
         navigate("/dashboard/dashboard");
@@ -34,10 +44,16 @@ export default () => {
 
     return (
         <div className="grid place-items-center h-screen">
-            <Card className="w-[350px] p-5 m-auto">
-                <h1 className="text-2xl text-center mb-2 font-bold">Volunteer Management</h1>
+            <Card className="w-[400px] p-5 m-auto">
+                <div className=" items-center flex justify-center">
+                    <img src={Logo} className='w-10  h-10 rounded-full' />
+                </div>
                 
-                <form >
+                <h1 className="text-xl text-center font-light mt-2">IEEE SB UoJ</h1>
+                <h1 className="text-xl text-center font-semibold mb-4 mt-1">Volunteer Management System</h1>
+                
+                
+                <form className="pb-4" >
                     <Input type="email" name="email" variant="bordered" className="my-2"  placeholder="Enter your email" onChange={handleChange}  />
                     <Input type="password" name="password" variant="bordered" className="my-2" placeholder="Enter your password" onChange={handleChange}/>
                     <Button color="primary" onClick={submitLogin} isLoading={isLoading} fullWidth className="mt-2" variant="solid">Sign In</Button>
