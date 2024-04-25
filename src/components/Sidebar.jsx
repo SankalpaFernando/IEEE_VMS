@@ -21,6 +21,8 @@ export default () => {
 
     const loading = useUserStore(state=>state.loading);
 
+    const logout = useUserStore(state => state.logout);
+
     if(loading){
         return <></>
     }
@@ -64,6 +66,7 @@ export default () => {
                                     <div className="flex justify-end gap-3">
                                         <Button color='danger' className="w-1/2" variant='flat' onClick={()=>{
                                             supabase.auth.signOut();
+                                            logout()
                                             navigate('/login');
                                         }} >Yes</Button>
                                         <Button color='success' className="w-1/2" variant='flat' onClick={()=>setOpen(false)} >No</Button>
