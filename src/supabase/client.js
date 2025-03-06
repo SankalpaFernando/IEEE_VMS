@@ -2,7 +2,9 @@
 import { createClient } from '@supabase/supabase-js'
 
 // Create a single supabase client for interacting with your database
-const supabase = createClient('https://kwqkrhuaiaggtiypkwpn.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt3cWtyaHVhaWFnZ3RpeXBrd3BuIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcwOTQ4NTI0NSwiZXhwIjoyMDI1MDYxMjQ1fQ.Sl4w_WmYpFyyh1jeVwc_7LNn41aiZP-LwLTu4juSt0Q');
+const supabase = createClient('https://wxfnnzxradkltbujhwqh.supabase.co', 
+                              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind4Zm5uenhyYWRrbHRidWpod3FoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEyNzkxODAsImV4cCI6MjA1Njg1NTE4MH0.KPzkPiZvSsccWO2RyRgzZjQZ6vRwnhL-EQOAKV1A9nQ'
+                             );
 
 export default supabase;
 
